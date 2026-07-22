@@ -1,0 +1,127 @@
+96:) {
+97:    val title = remember(point.isSwipe, point.number) {
+98:        if (point.isSwipe) "Target ${point.number} (Swipe)" else "Target ${point.number} (Click)"
+100:    val holdDurationStr = remember(point.holdDurationMs) { point.holdDurationMs.toString() }
+101:    val delayAfterStr = remember(point.delayAfterMs) { point.delayAfterMs.toString() }
+111:    ) {
+115:        ) {
+120:            ) {
+124:                    label = { Text("Hold (ms)", fontSize = 10.sp) },
+132:                    label = { Text("Delay (ms)", fontSize = 10.sp) },
+143:fun HelpIcon(tooltipText: String) {
+144:    var expanded by remember { mutableStateOf(false) }
+145:    Box {
+147:            onClick = { expanded = true },
+149:        ) {
+159:            onDismissRequest = { expanded = false },
+161:        ) {
+172:fun AppTheme(darkTheme: Boolean, content: @Composable () -> Unit) {
+173:    val colorScheme = if (darkTheme) {
+185:    } else {
+206:fun MainScreen(viewModel: ClickerViewModel) {
+219:    var intervalString by remember { mutableStateOf(AutoClickService.clickIntervalMs.value.toString()) }
+226:    LaunchedEffect(AutoClickService.clickIntervalMs.value) {
+230:    LaunchedEffect(isAdvancedMode) {
+234:    AppTheme(darkTheme = isDark) {
+238:            topBar = {
+245:                ) {
+246:                    Column {
+266:                    ) {
+267:                        if (currentRoute != "profiles") {
+268:                            IconButton(onClick = { navController.navigate("profiles") }) {
+285:                            onCheckedChange = { viewModel.toggleDarkMode() },
+296:            bottomBar = {
+301:                ) {
+302:                    if (isAccessibilityGranted && isOverlayGranted) {
+304:                            onClick = {
+305:                                if (isOverlayActive) {
+307:                                } else {
+319:                        ) {
+331:                    } else {
+341:                        ) {
+353:        ) { innerPadding ->
+354:            NavHost(navController = navController, startDestination = "main") {
+355:                composable("main") {
+362:                    ) {
+364:                item {
+377:                    ) {
+381:                        ) {
+393:                            ) {
+401:                                Column(modifier = Modifier.weight(1f)) {
+416:                            if (!isAccessibilityGranted) {
+418:                                    onClick = {
+428:                                ) {
+439:                            ) {
+447:                                Column(modifier = Modifier.weight(1f)) {
+462:                            if (!isOverlayGranted) {
+464:                                    onClick = {
+467:                                            Uri.parse("package:${context.packageName}")
+477:                                ) {
+487:                if (isAccessibilityGranted && !isServiceRunningState) {
+488:                    item {
+501:                        ) {
+505:                            ) {
+513:                                Column {
+528:                                        onClick = {
+538:                                    ) {
+547:                item {
+552:                    ) {
+553:                        Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+554:                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+561:                            ) {
+563:                                    onClick = {
+565:                                        if (AutoClickService.points.size > 1) {
+570:                                        } else if (AutoClickService.points.size == 1) {
+572:                                            if (first.isSwipe) {
+583:                                ) {
+587:                                    onClick = { AutoClickService.isAdvancedMode.value = true },
+593:                                ) {
+602:                if (isAccessibilityGranted && isOverlayGranted) {
+604:                    item {
+617:                        ) {
+621:                            ) {
+630:                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+631:                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+645:                                        ) {
+648:                                                onClick = {
+650:                                                    if (current > 100) {
+661:                                            ) {
+671:                                                onValueChange = { newValue ->
+672:                                                    intervalString = newValue.filter { it.isDigit() }
+688:                                                onClick = {
+699:                                            ) {
+709:                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+724:                                    ) {
+726:                                            onClick = { AutoClickService.targetTriggerKey.value = KeyEvent.KEYCODE_VOLUME_UP },
+732:                                        ) {
+736:                                            onClick = { AutoClickService.targetTriggerKey.value = KeyEvent.KEYCODE_VOLUME_DOWN },
+742:                                        ) {
+749:                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+754:                                    ) {
+755:                                        Column(modifier = Modifier.weight(1f)) {
+770:                                            onCheckedChange = { 
+784:                                    if (AutoClickService.enableTimingVariance.value) {
+785:                                        var varianceString by remember { mutableStateOf(AutoClickService.timingVarianceMs.value.toString()) }
+790:                                        ) {
+798:                                                onValueChange = { newValue ->
+799:                                                    varianceString = newValue.filter { it.isDigit() }
+817:                                if (isAdvancedMode) {
+822:                                    ) {
+830:                                            text = "${AutoClickService.points.size} Active",
+841:                    if (isAdvancedMode && AutoClickService.points.isNotEmpty()) {
+842:                        item {
+852:                        items(items = AutoClickService.points, key = { it.number }) { point ->
+855:                                onUpdateHoldDuration = { newValue ->
+856:                                    if (newValue.isEmpty()) {
+857:                                        val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+859:                                    } else {
+860:                                        newValue.toLongOrNull()?.let {
+861:                                            val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+866:                                onUpdateDelayAfter = { newValue ->
+867:                                    if (newValue.isEmpty()) {
+868:                                        val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+870:                                    } else {
+871:                                        newValue.toLongOrNull()?.let {
+872:                                            val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+882:                composable("profiles") {
+885:                        onNavigateBack = { navController.popBackStack() },

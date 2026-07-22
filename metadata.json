@@ -1,0 +1,6 @@
+{
+  "name": "Z-TAPPER",
+  "description": "Precision non-root auto-clicker with custom intervals, touch-point mapping overlays, and dark mode toggle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

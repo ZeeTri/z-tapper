@@ -1,0 +1,128 @@
+98:        if (point.isSwipe) "Target ${point.number} (Swipe)" else "Target ${point.number} (Click)"
+99:    }
+100:    val holdDurationStr = remember(point.holdDurationMs) { point.holdDurationMs.toString() }
+101:    val delayAfterStr = remember(point.delayAfterMs) { point.delayAfterMs.toString() }
+124:                    label = { Text("Hold (ms)", fontSize = 10.sp) },
+132:                    label = { Text("Delay (ms)", fontSize = 10.sp) },
+137:            }
+138:        }
+139:    }
+140:}
+144:    var expanded by remember { mutableStateOf(false) }
+147:            onClick = { expanded = true },
+156:        }
+159:            onDismissRequest = { expanded = false },
+167:        }
+168:    }
+169:}
+185:    } else {
+197:    }
+203:}
+219:    var intervalString by remember { mutableStateOf(AutoClickService.clickIntervalMs.value.toString()) }
+228:    }
+232:    }
+260:                    }
+268:                            IconButton(onClick = { navController.navigate("profiles") }) {
+275:                            }
+276:                        }
+285:                            onCheckedChange = { viewModel.toggleDarkMode() },
+293:                    }
+294:                }
+295:            },
+307:                                } else {
+309:                                }
+310:                            },
+330:                        }
+331:                    } else {
+349:                        }
+350:                    }
+351:                }
+352:            }
+413:                                }
+414:                            }
+421:                                    },
+430:                                }
+431:                            }
+459:                                }
+460:                            }
+467:                                            Uri.parse("package:${context.packageName}")
+470:                                    },
+479:                                }
+480:                            }
+481:                        }
+482:                    }
+483:                }
+531:                                        },
+540:                                    }
+541:                                }
+542:                            }
+543:                        }
+544:                    }
+545:                }
+557:                            }
+570:                                        } else if (AutoClickService.points.size == 1) {
+575:                                            }
+576:                                        }
+577:                                    },
+585:                                }
+587:                                    onClick = { AutoClickService.isAdvancedMode.value = true },
+595:                                }
+596:                            }
+597:                        }
+598:                    }
+599:                }
+639:                                    }
+652:                                                    }
+653:                                                },
+666:                                            }
+672:                                                    intervalString = newValue.filter { it.isDigit() }
+676:                                                },
+691:                                                },
+704:                                            }
+705:                                        }
+706:                                    }
+726:                                            onClick = { AutoClickService.targetTriggerKey.value = KeyEvent.KEYCODE_VOLUME_UP },
+734:                                        }
+736:                                            onClick = { AutoClickService.targetTriggerKey.value = KeyEvent.KEYCODE_VOLUME_DOWN },
+744:                                        }
+745:                                    }
+746:                                }
+767:                                        }
+773:                                            },
+782:                                    }
+785:                                        var varianceString by remember { mutableStateOf(AutoClickService.timingVarianceMs.value.toString()) }
+799:                                                    varianceString = newValue.filter { it.isDigit() }
+804:                                                },
+813:                                        }
+814:                                    }
+815:                                }
+830:                                            text = "${AutoClickService.points.size} Active",
+835:                                    }
+836:                                }
+837:                            }
+838:                        }
+839:                    }
+850:                        }
+852:                        items(items = AutoClickService.points, key = { it.number }) { point ->
+857:                                        val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+859:                                    } else {
+861:                                            val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+863:                                        }
+864:                                    }
+865:                                },
+868:                                        val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+870:                                    } else {
+872:                                            val index = AutoClickService.points.indexOfFirst { it.number == point.number }
+874:                                        }
+875:                                    }
+876:                                }
+878:                        }
+879:                    }
+880:                }
+881:                }
+885:                        onNavigateBack = { navController.popBackStack() },
+889:                }
+890:            }
+891:        }
+892:    }
+893:}
