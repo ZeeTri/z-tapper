@@ -21,3 +21,5 @@ debug.keystore
 dump*.txt
 
 *.jks
+
+ApkVersions/
