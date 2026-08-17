@@ -1,0 +1,10 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- A slightly rotated and nicely proportioned cursor arrow to match the image -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,20 L35,85 L48,72 L60,95 L72,88 L58,65 L80,65 Z" />
+</vector>
